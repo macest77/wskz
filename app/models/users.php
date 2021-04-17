@@ -1,5 +1,7 @@
 <?php
 
+include 'functions.php';
+
 class Users
 {
     private $login;
@@ -12,9 +14,10 @@ class Users
     private $update_fields = array('password', 'first_name',
                     'last_name', 'sex');
     
-    public function __construct(PDO() $pdo) : bool
+    public function __construct()
     {
-        $this->pdo = $pdo;
+        $functions = new Functions();
+        $this->pdo = $functions->create_pdo($config);
         $this->error_messages = array();
         
         return true;
@@ -80,7 +83,7 @@ class Users
         }
     }
     
-    public function getErrorMessages() : ?array
+    public function getErrorMessages() : array
     {
         if ( count($this->error_messages) > 0 )
             return $this->error_messages;

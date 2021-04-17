@@ -3,10 +3,8 @@
 $config = parse_ini_file('../wskz_config.ini');
 
 include 'models/users.php';
-include 'models/functions.php';
 
-$functions = new Functions();
-$pdo = $functions->create_pdo($config);
+$template = '';
 
 if (isset($_GET['register']) ) {
     if (isset($_POST['login']) ) {
@@ -20,5 +18,17 @@ if (isset($_GET['register']) ) {
             $_SESSION['user_data'] = $users->getSessionUserData();
         }
     }
-    include 'views/register.phtml';
+    $template = 'views/register.phtml';
+} else {
+    if (isset($_SESSION['login']) ) {
+    }
 }
+?>
+<html>
+    <head>
+    </head>
+    <body>
+        <p>Witaj na stronie</p>
+        <?php include $template; ?>
+    </body>
+</html>
