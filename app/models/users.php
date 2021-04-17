@@ -39,11 +39,15 @@ class Users
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute([$data['login'], password_hash($data['password'], PASSWORD_DEFAULT),
                     $data['first_name'], $data['last_name'], $data['sex']]);
+                    
             } catch (PDOException $e) {
                 $this->selectByLogin($data);
+                
                 if ($this->login != '') {
                     $updates = array();
+                    
                     foreach($this->update_fields as $field) {
+                        
                         if ($field == 'password')
                             $data[$field] = password_hash($data['password'], PASSWORD_DEFAULT);
                      
@@ -51,7 +55,9 @@ class Users
                             $updates[$field] = $data[$field];
                     }
                     if ( count($updates) > 0 ) {
+                        
                         $sql = 'UPDATE users SET ';
+                        
                         foreach( $updates as $field_name => $field_value) {
                             $sql .= $field_name.' = :'.$field_name.',';
                         }
