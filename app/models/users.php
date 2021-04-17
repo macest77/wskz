@@ -25,6 +25,8 @@ class Users
     
     private function isValid(array $data) : bool
     {
+        //need to do validation - login must have at least 6 letters (strlen() > 6)
+        //passwords must be the same
         return true;
     }
     
