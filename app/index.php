@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('../config.ini');
+$config = parse_ini_file('../wskz_config.ini');
 
 include 'models/users.php';
 include 'models/functions.php';
@@ -13,6 +13,12 @@ if (isset($_GET['register']) ) {
         
         $users = new Users($pdo);
         $users->insert($_POST);
+        
+        if ( $messages = $users->getErrorMessages() ) {
+            $_SESSION['error_messages'] = $messages;
+        } else {
+            $_SESSION['user_data'] = $users->getSessionUserData();
+        }
     }
     include 'views/register.phtml';
 }

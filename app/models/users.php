@@ -79,6 +79,20 @@ class Users
             $this->sex = $row['sex'];
         }
     }
+    
+    public function getErrorMessages() : ?array
+    {
+        if ( count($this->error_messages) > 0 )
+            return $this->error_messages;
+        
+        return null;
+    }
+    
+    public function getSessionUserData() : array
+    {
+        return array('login'=>$this->login,
+                        'password'=>$this->password);
+    }
 }
 
 /*create table wskz_users (
